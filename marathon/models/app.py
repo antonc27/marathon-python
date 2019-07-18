@@ -31,6 +31,7 @@ class MarathonApp(MarathonResource):
     :param float cpus: cpus required per instance
     :param list[str] dependencies: services (app IDs) on which this app depends
     :param int disk: disk required per instance
+    :param int network_bandwidth: network bandwidth required per instance
     :param deployments: (read-only) currently running deployments that affect this app
     :type deployments: list[:class:`marathon.models.deployment.MarathonDeployment`]
     :param dict env: env vars
@@ -90,7 +91,7 @@ class MarathonApp(MarathonResource):
     KILL_SELECTIONS = ["YOUNGEST_FIRST", "OLDEST_FIRST"]
 
     def __init__(self, accepted_resource_roles=None, args=None, backoff_factor=None, backoff_seconds=None, cmd=None,
-                 constraints=None, container=None, cpus=None, dependencies=None, deployments=None, disk=None, env=None,
+                 constraints=None, container=None, cpus=None, dependencies=None, deployments=None, disk=None, network_bandwidth=None, env=None,
                  executor=None, health_checks=None, id=None, instances=None, kill_selection=None, labels=None,
                  last_task_failure=None, max_launch_delay_seconds=None, mem=None, ports=None, require_ports=None,
                  store_urls=None, task_rate_limit=None, tasks=None, tasks_running=None, tasks_staged=None,
@@ -122,6 +123,7 @@ class MarathonApp(MarathonResource):
             for d in (deployments or [])
         ]
         self.disk = disk
+        self.network_bandwidth = network_bandwidth
         self.env = env or dict()
         self.executor = executor
         self.gpus = gpus
